@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <!--关闭缓存:在多机环境下，当数据有更新时 是不会刷新缓存的-->
+        <setting name="cacheEnabled" value="false"/>
+        <!--下划线自动转驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"></setting>
+        <!--自动生成主键-->
+        <setting name="useGeneratedKeys" value="true"></setting>
+        <!--mybatis三种执行器 SIMPLE: 普通执行器 REUSE:重用预处理语句(prepared statements) BATCH:批量执行器-->
+        <setting name="defaultExecutorType" value="REUSE"></setting>
+        <!--事务超时时间-->
+        <setting name="defaultStatementTimeout" value="600"></setting>
+
+    </settings>
+    <!--定义别名-->
+    <typeAliases>
+        <typeAlias type="com.kaka.house.common.model.User" alias="user"></typeAlias>
+    </typeAliases>
+    <!--定义mapper文件路径-->
+    <mappers>
+        <mapper resource="mapper/user.xml"></mapper>
+    </mappers>
+</configuration>
