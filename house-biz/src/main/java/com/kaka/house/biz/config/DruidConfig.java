@@ -1,4 +1,4 @@
-package com.kaka.house.config;
+package com.kaka.house.biz.config;
 
 
 

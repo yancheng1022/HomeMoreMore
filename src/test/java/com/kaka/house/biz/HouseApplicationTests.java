@@ -1,4 +1,4 @@
-package com.kaka.house;
+package com.kaka.house.biz;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

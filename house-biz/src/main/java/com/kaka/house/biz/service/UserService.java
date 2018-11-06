@@ -1,8 +1,9 @@
-package com.kaka.house.service;
+package com.kaka.house.biz.service;
+
 
 
 import com.kaka.house.common.model.User;
-import com.kaka.house.mapper.UserMapper;
+import com.kaka.house.biz.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

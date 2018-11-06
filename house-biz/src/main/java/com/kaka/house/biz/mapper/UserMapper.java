@@ -1,8 +1,7 @@
-package com.kaka.house.mapper;
+package com.kaka.house.biz.mapper;
 
 import com.kaka.house.common.model.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

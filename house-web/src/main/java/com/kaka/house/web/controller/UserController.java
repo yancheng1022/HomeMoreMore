@@ -1,13 +1,11 @@
-package com.kaka.house.controller;
+package com.kaka.house.web.controller;
 
 import com.kaka.house.common.model.User;
-import com.kaka.house.mapper.UserMapper;
-import com.kaka.house.service.UserService;
+import com.kaka.house.biz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,6 +19,7 @@ public class UserController {
         List<User> users = userService.getUsers();
         User user = users.get(0);
         modelMap.put("user", user);
+//        int i = 1/0;
         return "hello";
     }
 
