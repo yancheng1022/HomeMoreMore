@@ -17,10 +17,10 @@ public class UserHelper {
         if (StringUtils.isBlank(account.getName())){
             return ResultMsg.errorMsg("名字有误");
         }
-        if (StringUtils.isBlank(account.getConfirmPassword())||StringUtils.isBlank(account.getPassword())){
+        if (StringUtils.isBlank(account.getConfirmPasswd())||StringUtils.isBlank(account.getPasswd())){
             return ResultMsg.errorMsg("密码/确认密码不能为空");
         }
-        if (account.getPassword().length() < 6){
+        if (account.getPasswd().length() < 6){
             return ResultMsg.errorMsg("密码应大于6位");
         }
         return ResultMsg.successMsg("");

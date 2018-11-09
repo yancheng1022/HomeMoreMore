@@ -28,15 +28,28 @@ public class UserController {
     public String accountRegister(User account,ModelMap modelMap){
         //页面跳转
         if (account == null || account.getName() == null){
+
             return "/user/accounts/register";
         }
         //用户验证
         ResultMsg resultMsg = UserHelper.validate(account);
         if(resultMsg.isSuccess() && userService.addAccount(account)){
+            modelMap.put("email", account.getEmail());
             return "/user/accounts/registerSubmit";
         }else {
             return "redirect:/account/register?"+resultMsg.asUrlParams();
         }
 
+    }
+
+    //用户激活
+    @RequestMapping("accounts/verify")
+    public String verify(String key){
+        boolean result = userService.enable(key);
+        if (result){
+            return "redirect:/index?"+ResultMsg.successMsg("激活成功！").asUrlParams();
+        }else {
+            return "redirect:accounts/register?"+ResultMsg.errorMsg("激活失败,请确认链接是否过期").asUrlParams();
+        }
     }
 }

@@ -10,4 +10,8 @@ public interface UserMapper {
 
 
     int insert(User account);
+
+    void delete(String email);
+
+    void update(User updateUser);
 }

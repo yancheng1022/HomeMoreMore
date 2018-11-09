@@ -14,9 +14,9 @@ public class User {
 
     private String name;
 
-    private String password;
+    private String passwd;
 
-    private String confirmPassword;
+    private String confirmPasswd;
 
     private Integer type; //普通用户-1 经纪人-2
 
@@ -24,15 +24,35 @@ public class User {
 
     private Integer enable;
 
-    private String avator;
+    private String avatar;
 
-    private MultipartFile avatorFile;
+    private MultipartFile avatarFile;
 
     private String newPassword;
 
     private String key;
 
     private Long agencyId;
+
+    private String aboutme;
+
+    private String agencyName;
+
+    public String getAboutme() {
+        return aboutme;
+    }
+
+    public void setAboutme(String aboutme) {
+        this.aboutme = aboutme;
+    }
+
+    public String getAgencyName() {
+        return agencyName;
+    }
+
+    public void setAgencyName(String agencyName) {
+        this.agencyName = agencyName;
+    }
 
     public Long getId() {
         return id;
@@ -66,20 +86,20 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswd() {
+        return passwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public String getConfirmPasswd() {
+        return confirmPasswd;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setConfirmPasswd(String confirmPasswd) {
+        this.confirmPasswd = confirmPasswd;
     }
 
     public Integer getType() {
@@ -106,20 +126,20 @@ public class User {
         this.enable = enable;
     }
 
-    public String getAvator() {
-        return avator;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAvator(String avator) {
-        this.avator = avator;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    public MultipartFile getAvatorFile() {
-        return avatorFile;
+    public MultipartFile getAvatarFile() {
+        return avatarFile;
     }
 
-    public void setAvatorFile(MultipartFile avatorFile) {
-        this.avatorFile = avatorFile;
+    public void setAvatarFile(MultipartFile avatarFile) {
+        this.avatarFile = avatarFile;
     }
 
     public String getNewPassword() {

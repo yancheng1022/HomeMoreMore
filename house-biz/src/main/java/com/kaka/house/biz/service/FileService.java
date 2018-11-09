@@ -23,8 +23,8 @@ public class FileService {
             File localFile = null;
             if (!file.isEmpty()){
                 try {
-                    saveToLocal(file,filePath);
-                    String path = StringUtils.substringAfterLast(localFile.getAbsolutePath(),filePath );
+                    localFile = saveToLocal(file,filePath);
+                    String path = StringUtils.substringAfterLast(localFile.getAbsolutePath(),filePath);
                     paths.add(path);
                 }catch (Exception e){
                     //字面非法参数 通常情况为找不到文件等
@@ -44,6 +44,6 @@ public class FileService {
             newFile.createNewFile();
         }
         Files.write(file.getBytes(), newFile);
-        return null;
+        return newFile;
     }
 }
