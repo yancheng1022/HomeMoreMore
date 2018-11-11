@@ -4,15 +4,16 @@ import com.kaka.house.common.constants.CommonConstants;
 import com.kaka.house.common.model.User;
 import com.kaka.house.biz.service.UserService;
 import com.kaka.house.common.result.ResultMsg;
+import com.kaka.house.common.utils.HashUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Controller
@@ -57,7 +58,7 @@ public class UserController {
         }
     }
 
-    //---------------------登录模块----------------------------
+    //---------------------登录模块----------------------------------------------
     @RequestMapping("accounts/signin")
     public String signin(HttpServletRequest req){
         String username = req.getParameter("username");
@@ -71,6 +72,8 @@ public class UserController {
         User user = userService.auth(username,password);
         if (user == null){
             return "redirect:/accounts/signin?"+"username="+username+"&"+ResultMsg.errorMsg("用户名或密码错误").asUrlParams();
+        }else if (user.getEnable() == 0){
+            return "redirect:/accounts/signin?"+"username="+username+"&"+ResultMsg.errorMsg("用户邮箱未验证").asUrlParams();
         }else {
             HttpSession session = req.getSession(true);
             session.setAttribute(CommonConstants.USER_ATTRIBUTE, user);
@@ -87,4 +90,33 @@ public class UserController {
         session.invalidate();
         return "redirect:/index";
     }
+
+    //--------------------个人信息-------------------------
+    @RequestMapping("accounts/profile")
+    public String profile(HttpServletRequest request,User updateUser,ModelMap modelMap){
+        if (updateUser.getEmail() ==null ){
+            return "/user/accounts/profile";
+        }
+        userService.updateUser(updateUser,updateUser.getEmail());
+        User query = new User();
+        query.setEmail(updateUser.getEmail());
+        List<User> list = userService.getUserByQuery(query);
+        request.getSession(true).setAttribute("user", list.get(0));
+        return "redirect:/accounts/profile?"+ResultMsg.successMsg("更新成功！").asUrlParams();
+
+    }
+
+    @RequestMapping("accounts/changePassword")
+    public String changePassword(String password,String email,String newPassword,String confirmPassword,ModelMap modelMap){
+        User user = userService.auth(email, password);
+        if (user == null){
+            return "redirect:/accounts/profile?"+ResultMsg.errorMsg("密码错误").asUrlParams();
+        }
+        User userUpdate = new User();
+        userUpdate.setPasswd(HashUtils.encryPassword(newPassword));
+        userService.updateUser(userUpdate, userUpdate.getEmail());
+        return "redirect:/accounts/profile?"+ResultMsg.successMsg("更新成功").asUrlParams();
+    }
+
+
 }

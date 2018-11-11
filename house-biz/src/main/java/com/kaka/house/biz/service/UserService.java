@@ -34,18 +34,22 @@ public class UserService {
     //2生成key 绑定email 发送邮件给用户
     @Transactional(rollbackFor = Exception.class)
     public boolean addAccount(User account) {
+        //加盐 md5加密
         account.setPasswd(HashUtils.encryPassword(account.getPasswd()));
+        //获得图片路径 + 保存图片到图片服务器
         List<String> imgList = fileService.getImagePath(Lists.newArrayList(account.getAvatarFile()));
         if (imgList != null){
             account.setAvatar(imgList.get(0));
         }
         //设置默认值
         BeanHelper.setDefaultProp(account, User.class);
-        //设置插入时间
+        //设置插入的时间
         BeanHelper.onInsert(account);
-
+        //设置用户未激活
         account.setEnable(0);
+        //添加到数据库
         userMapper.insert(account);
+        //异步的去执行发送邮件
         mailService.registerNotify(account.getEmail());
         return true;
     }
@@ -68,12 +72,18 @@ public class UserService {
 
     }
 
-    private List<User> getUserByQuery(User user) {
+    public List<User> getUserByQuery(User user) {
         List<User> list = userMapper.selectUserByQuery(user);
         if (list == null || list.size() ==0)return null;
         for (User u : list) {
             u.setAvatar(imgPrefix+u.getAvatar());
         }
         return list;
+    }
+
+    public void updateUser(User updateUser, String email) {
+        updateUser.setEmail(email);
+        BeanHelper.onUpdate(updateUser);
+        userMapper.update(updateUser);
     }
 }

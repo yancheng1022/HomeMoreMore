@@ -13,7 +13,7 @@ public class HashUtils {
     private static final String SALT = "kaka.com";
 
     public static String encryPassword(String password){
-        HashCode hashCode = FUNCTION.hashString(password, Charset.forName("UTF-8"));
+        HashCode hashCode = FUNCTION.hashString(password+SALT, Charset.forName("UTF-8"));
         return hashCode.toString();
     }
 }
