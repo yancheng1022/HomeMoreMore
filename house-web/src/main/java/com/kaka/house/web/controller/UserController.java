@@ -77,7 +77,7 @@ public class UserController {
         }else {
             HttpSession session = req.getSession(true);
             session.setAttribute(CommonConstants.USER_ATTRIBUTE, user);
-            session.setAttribute(CommonConstants.PLAIN_USER_ATTRIBUTE, user);
+            //session.setAttribute(CommonConstants.PLAIN_USER_ATTRIBUTE, user);
             return StringUtils.isBlank(target)?"redirect:/index":"redirect:"+target;
 
         }
@@ -101,7 +101,7 @@ public class UserController {
         User query = new User();
         query.setEmail(updateUser.getEmail());
         List<User> list = userService.getUserByQuery(query);
-        request.getSession(true).setAttribute("user", list.get(0));
+        request.getSession(true).setAttribute(CommonConstants.USER_ATTRIBUTE, list.get(0));
         return "redirect:/accounts/profile?"+ResultMsg.successMsg("更新成功！").asUrlParams();
 
     }
@@ -114,7 +114,7 @@ public class UserController {
         }
         User userUpdate = new User();
         userUpdate.setPasswd(HashUtils.encryPassword(newPassword));
-        userService.updateUser(userUpdate, userUpdate.getEmail());
+        userService.updateUser(userUpdate, user.getEmail());
         return "redirect:/accounts/profile?"+ResultMsg.successMsg("更新成功").asUrlParams();
     }
 

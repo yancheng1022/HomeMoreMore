@@ -21,9 +21,12 @@
     <!--定义别名-->
     <typeAliases>
         <typeAlias type="com.kaka.house.common.model.User" alias="user"></typeAlias>
+        <typeAlias type="com.kaka.house.common.model.House" alias="house"></typeAlias>
+        <typeAlias type="com.kaka.house.common.model.Community" alias="community"></typeAlias>
     </typeAliases>
     <!--定义mapper文件路径-->
     <mappers>
         <mapper resource="mapper/user.xml"></mapper>
+        <mapper resource="mapper/house.xml"></mapper>
     </mappers>
 </configuration>
